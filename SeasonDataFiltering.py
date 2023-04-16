@@ -4,7 +4,6 @@ import pandas as pd
 import streamlit as st
 from PIL import Image
 import matplotlib.pyplot as plt
-from matplotlib.patches import Circle, Rectangle, Arc
 from nba_api.stats.endpoints import shotchartdetail
 import json
 from pathlib import Path
@@ -70,7 +69,7 @@ def SeasonDataFiltering():
                 image = Image.open(str(Path.cwd()) + "/analytics_images/{0}.png".format(player_name))
                 st.write('{0} 2022-2023 Regular Season Shotmaking'.format(player_name))
                 st.image(image)
-                
+
                 st.write("Offensive Plays By {0}".format(player_name))
                 off_pie_fig, off_pie = plt.subplots()
                 sizes = player_pbp['offensive_play'].value_counts(normalize=True)
