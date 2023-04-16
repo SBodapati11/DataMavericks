@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -10,6 +12,8 @@ from pathlib import Path
 players_mavs = ["Luka Doncic", "Kyrie Irving", "Justin Holiday", "Theo Pinson", "Jaden Hardy", "Dwight Powell",
                  "Josh Green", "Tim Hardaway Jr.", "Markieff Morris", "Frank Ntilikina", "Reggie Bullock",
                  "Christian Wood", "Maxi Kleber", "Davis Bertans", "Javale McGee", "AJ Lawson"]
+# image folder
+image_folder = "images"
 
 # Define function for the first tab
 def Lineups():
@@ -70,12 +74,17 @@ def Matchups():
     selected_player_2 = st.selectbox(" ", Players_2)
     # TODO - Pull up selected_player_1's stats and selected_player_2's stats and run algorithmic magic on them woo
     # pit players against each other and run probability of p1 beating p2
-    estimated_chance = 99
+    estimated_chance = 49
 
     # after doing that, put them next to each other using an automatically pulled image
-    # TODO - make getting the image automatic, either by mapping or something else
-    fighter1_image = Image.open(str(Path.cwd()) + "\images\{0}.png".format(selected_player_1.split()[0].lower()))
-    fighter2_image = Image.open("images/testbryant.png")
+    image_name = "{0}.png".format(selected_player_1.split()[0].lower())
+    image_path = os.path.join(image_folder, image_name)
+    fighter1_image = Image.open(image_path)
+
+    # TODO - Make the second fighter automatic
+    image_2_name = "testbryant.png"
+    image_2_path = os.path.join(image_folder, image_2_name)
+    fighter2_image = Image.open(image_2_path)
 
     col1, col2, col3 = st.columns([1, 1, 1])
 
@@ -96,9 +105,13 @@ def Matchups():
         f"<span style='color: blue'>{selected_player_1}</span> has a <b>{str(estimated_chance)}%</b> chance of beating <span style='color: red'>{selected_player_2}</span>",
         unsafe_allow_html=True)
     if estimated_chance > 50:
-        st.image("images/gifs/luka_muscle.gif")
+        image_name = "gifs/luka_muscle.gif"
+        image_path = os.path.join(image_folder, image_name)
+        st.image(image_path)
     else:
-        st.image("images/gifs/luka_no.gif")
+        image_name = "gifs/luka_no.gif"
+        image_path = os.path.join(image_folder, image_name)
+        st.image(image_path)
 
 
 # Define function for the third tab
@@ -127,7 +140,10 @@ def Shooting_Calculator():
 
     # TODO: match selected_player_1 to its image mapping
     with col1:
-        selection = Image.open(str(Path.cwd()) + "\images\{0}.png".format(selected_player_1.split()[0].lower()))
+        # after doing that, put them next to each other using an automatically pulled image
+        image_name = "{0}.png".format(selected_player_1.split()[0].lower())
+        image_path = os.path.join(image_folder, image_name)
+        selection = Image.open(image_path)
         st.image(selection, use_column_width=True)
 
     # Add line chart to the second column
@@ -179,7 +195,10 @@ def Log_Off():
 
 # Define the Streamlit app layout
 st.set_page_config(page_title="Data Mavericks", layout="wide")
-st.sidebar.image("images/mavs.png", width=200)  # Add an image to the sidebar
+
+image_name = "mavs.png"
+image_path = os.path.join(image_folder, image_name)
+st.sidebar.image(image_path, width=200)  # Add an image to the sidebar
 st.sidebar.title("DataMavericks")
 tabs = ["Lineups", "Matchups", "Shooting Calculator", "Log Off"]
 selected_tab = st.sidebar.radio("Navigation", tabs, index=0)
