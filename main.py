@@ -5,8 +5,6 @@ import pandas as pd
 import streamlit as st
 import altair as alt
 from PIL import Image
-from pathlib import Path
-import process_data
 from SeasonDataFiltering import SeasonDataFiltering
 from Matchups import Matchups
 from Lineups import Lineups
@@ -14,7 +12,8 @@ from Lineups import Lineups
 # Players
 players_mavs = ["Luka Doncic", "Kyrie Irving", "Justin Holiday", "Theo Pinson", "Jaden Hardy", "Dwight Powell",
                  "Josh Green", "Tim Hardaway Jr.", "Markieff Morris", "Frank Ntilikina", "Reggie Bullock",
-                 "Christian Wood", "Maxi Kleber", "Davis Bertans", "Javale McGee", "AJ Lawson"]
+                 "Christian Wood", "Maxi Kleber", "Davis Bertans", "Javale McGee", "AJ Lawson",
+                "Dorian Lawrence Finney-Smith", "Spencer Dinwiddie"]
 # image folder
 image_folder = "images"
 
@@ -96,7 +95,7 @@ def Shooting_Calculator():
 # Define the Streamlit app layout
 st.set_page_config(page_title="Data Mavericks", layout="wide")
 
-image_name = "mavs.png"
+image_name = "teams_logos/mavericks.png"
 image_path = os.path.join(image_folder, image_name)
 st.sidebar.image(image_path, width=200)  # Add an image to the sidebar
 st.sidebar.title("DataMavericks")
