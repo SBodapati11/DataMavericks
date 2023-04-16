@@ -67,7 +67,7 @@ def Matchups():
     selected_player_2 = st.selectbox(" ", Players_2, index=0)
     # TODO - Pull up selected_player_1's stats and selected_player_2's stats and run algorithmic magic on them woo
     # pit players against each other and run probability of p1 beating p2
-    estimated_chance = 99.875
+    estimated_chance = 49
 
     # after doing that, put them next to each other using an automatically pulled image
     # TODO - make getting the image automatic, either by mapping or something else
@@ -92,6 +92,10 @@ def Matchups():
     st.write(
         f"<span style='color: blue'>{selected_player_1}</span> has a <b>{str(estimated_chance)}%</b> chance of beating <span style='color: red'>{selected_player_2}</span>",
         unsafe_allow_html=True)
+    if estimated_chance > 50:
+        st.image("images/gifs/luka_muscle.gif")
+    else:
+        st.image("images/gifs/luka_no.gif")
 
 
 # Define function for the third tab
