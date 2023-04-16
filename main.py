@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+from PIL import Image
 
 
 # Define function for the first tab
@@ -54,8 +55,39 @@ def Lineups():
 # Define function for the second tab
 def Matchups():
     st.header("Matchups")
-    st.write("This is the content for Matchups.")
-    # Add more code here for custom functionality
+    Players_1 = ["Luka Doncic", "Kyrie Irving", "Justin Holiday", "Theo Pinson", "Jaden Hardy", "Dwight Powell",
+                 "Josh Green", "Tim Hardaway Jr.", "Markieff Morris", "Frank Ntilikina", "Reggie Bullock",
+                 "Christian Wood", "Maxi Kleber", "Davis Bertans", "Javale McGee"]
+    Players_2 = ["Bryant Test", "Papa's pizzeria", "Gray Domino", "Black Velvet", "Chcolate Coating"]
+    st.write(f"<span style='color: blue'><b>Select Player 1</b></span>", unsafe_allow_html=True)
+    selected_player_1 = st.selectbox(" ",Players_1, index=0)
+    st.write(f"<span style='color: red'><b>Select Player 2</b></span>", unsafe_allow_html=True)
+    selected_player_2 = st.selectbox(" ", Players_2, index=0)
+    # TODO - Pull up selected_player_1's stats and selected_player_2's stats and run algorithmic magic on them woo
+    # pit players against each other and run probability of p1 beating p2
+    estimated_chance = 99.875
+
+    # after doing that, put them next to each other using an automatically pulled image
+    # TODO - make getting the image automatic, either by mapping or something else
+    fighter1_image = Image.open("images/luka.png")
+    fighter2_image = Image.open("images/testbryant.png")
+
+    col1, col2, col3 = st.columns([1, 1, 1])
+
+    with col1:
+        st.image(fighter1_image)
+
+    with col2:
+        st.markdown(
+            "<div style='text-align:center'><span style='color:blue; font-size: 72px;'>V.</span><span style='color:red; font-size: 72px;'>S.</span></div>", unsafe_allow_html=True)
+
+    with col3:
+        st.image(fighter2_image)
+
+    st.subheader("Prediction")
+    st.write(f"<span style='color: blue'>{selected_player_1}</span> has a <b>{str(estimated_chance)}%</b> chance of beating <span style='color: red'>{selected_player_2}</span>", unsafe_allow_html=True)
+
+
 
 
 # Define function for the third tab
