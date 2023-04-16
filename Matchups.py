@@ -54,7 +54,7 @@ def Matchups():
     fighter1_image = Image.open(image_path)
 
     # TODO - Make the second fighter automatic
-    image_2_name = "testbryant.png"
+    image_2_name = "teams_logos/{0}.png".format(selected_opponent.split()[-1].lower())
     image_2_path = os.path.join(image_folder, image_2_name)
     fighter2_image = Image.open(image_2_path)
 

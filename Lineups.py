@@ -35,6 +35,13 @@ def Lineups():
 
     # TODO - Fill in more possible teams and their players
     # Create a list of data that contains the first row and the remaining rows with ellipses
+    data = {
+        "Player Name": "Luka Doncic",
+        "Position": "PG",
+        "Height(ft\"in)": "6'7\"",
+        "Weight(lbs)": 230,
+        "Info": "Lorem ipsum dolor sit amet"
+    }
     data_list = [data] + [{"...": "..." for _ in range(len(headers))} for _ in range(9)]
 
     # Create a Pandas DataFrame object from the list of data and the headers
