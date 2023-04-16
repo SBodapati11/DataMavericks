@@ -67,7 +67,7 @@ def Matchups():
     selected_player_2 = st.selectbox(" ", Players_2, index=0)
     # TODO - Pull up selected_player_1's stats and selected_player_2's stats and run algorithmic magic on them woo
     # pit players against each other and run probability of p1 beating p2
-    estimated_chance = 49
+    estimated_chance = 99
 
     # after doing that, put them next to each other using an automatically pulled image
     # TODO - make getting the image automatic, either by mapping or something else
