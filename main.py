@@ -14,7 +14,8 @@ from Lineups import Lineups
 # Players
 players_mavs = ["Luka Doncic", "Kyrie Irving", "Justin Holiday", "Theo Pinson", "Jaden Hardy", "Dwight Powell",
                  "Josh Green", "Tim Hardaway Jr.", "Markieff Morris", "Frank Ntilikina", "Reggie Bullock",
-                 "Christian Wood", "Maxi Kleber", "Davis Bertans", "Javale McGee", "AJ Lawson"]
+                 "Christian Wood", "Maxi Kleber", "Davis Bertans", "Javale McGee", "AJ Lawson",
+                "Dorian Lawrence Finney-Smith", "Spencer Dinwiddie"]
 # image folder
 image_folder = "images"
 
