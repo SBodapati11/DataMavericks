@@ -2,9 +2,14 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import altair as alt
-import time
 from PIL import Image
+from pathlib import Path
 
+
+# Players
+players_mavs = ["Luka Doncic", "Kyrie Irving", "Justin Holiday", "Theo Pinson", "Jaden Hardy", "Dwight Powell",
+                 "Josh Green", "Tim Hardaway Jr.", "Markieff Morris", "Frank Ntilikina", "Reggie Bullock",
+                 "Christian Wood", "Maxi Kleber", "Davis Bertans", "Javale McGee", "AJ Lawson"]
 
 # Define function for the first tab
 def Lineups():
@@ -57,21 +62,19 @@ def Lineups():
 # Define function for the second tab
 def Matchups():
     st.header("Matchups")
-    Players_1 = ["Luka Doncic", "Kyrie Irving", "Justin Holiday", "Theo Pinson", "Jaden Hardy", "Dwight Powell",
-                 "Josh Green", "Tim Hardaway Jr.", "Markieff Morris", "Frank Ntilikina", "Reggie Bullock",
-                 "Christian Wood", "Maxi Kleber", "Davis Bertans", "Javale McGee"]
+
     Players_2 = ["Bryant Test", "Papa's pizzeria", "Gray Domino", "Black Velvet", "Chcolate Coating"]
     st.write(f"<span style='color: blue'><b>Select Player 1</b></span>", unsafe_allow_html=True)
-    selected_player_1 = st.selectbox(" ", Players_1, index=0)
+    selected_player_1 = st.selectbox(" ", players_mavs)
     st.write(f"<span style='color: red'><b>Select Player 2</b></span>", unsafe_allow_html=True)
-    selected_player_2 = st.selectbox(" ", Players_2, index=0)
+    selected_player_2 = st.selectbox(" ", Players_2)
     # TODO - Pull up selected_player_1's stats and selected_player_2's stats and run algorithmic magic on them woo
     # pit players against each other and run probability of p1 beating p2
     estimated_chance = 99
 
     # after doing that, put them next to each other using an automatically pulled image
     # TODO - make getting the image automatic, either by mapping or something else
-    fighter1_image = Image.open("images/luka.png")
+    fighter1_image = Image.open(str(Path.cwd()) + "\images\{0}.png".format(selected_player_1.split()[0].lower()))
     fighter2_image = Image.open("images/testbryant.png")
 
     col1, col2, col3 = st.columns([1, 1, 1])
@@ -102,13 +105,11 @@ def Matchups():
 def Shooting_Calculator():
     st.header("Shooting Calculator")
 
-    Players_1 = ["Luka Doncic", "Kyrie Irving", "Justin Holiday", "Theo Pinson", "Jaden Hardy", "Dwight Powell",
-                 "Josh Green", "Tim Hardaway Jr.", "Markieff Morris", "Frank Ntilikina", "Reggie Bullock",
-                 "Christian Wood", "Maxi Kleber", "Davis Bertans", "Javale McGee"]
     st.write(f"<span style='color: blue'><b>Select Player</b></span>", unsafe_allow_html=True)
-    selected_player_1 = st.selectbox(" ", Players_1, index=0)
+    selected_player_1 = st.selectbox(" ", players_mavs, index=0)
 
-    basketball_shots = ['Jump Shot', 'Layup', 'Dunk', 'Hook Shot', 'Tip Shot', 'Alley-oop', 'Free Throw', 'Three-Pointer']
+    basketball_shots = ['Jump Shot', 'Layup', 'Dunk', 'Hook Shot', 'Tip Shot', 'Alley-oop', 'Free Throw',
+                        'Three-Pointer']
     st.write(f"<span style='color: red'><b>Select a Shot</b></span>", unsafe_allow_html=True)
     selected_shot = st.selectbox(" ", basketball_shots, index=0)
 
@@ -126,7 +127,7 @@ def Shooting_Calculator():
 
     # TODO: match selected_player_1 to its image mapping
     with col1:
-        selection = Image.open("images/luka.png")
+        selection = Image.open(str(Path.cwd()) + "\images\{0}.png".format(selected_player_1.split()[0].lower()))
         st.image(selection, use_column_width=True)
 
     # Add line chart to the second column
