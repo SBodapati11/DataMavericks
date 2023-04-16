@@ -2,9 +2,20 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import altair as alt
-import time
 from PIL import Image
+from pathlib import Path
 
+# get absolute path of project
+project_dir = Path(__file__).resolve().parent # assuming the current file is in the project folder
+absolute_path = str(project_dir.absolute())
+
+# map player names to dictionary
+
+player_names = ["Luka Doncic", "Kyrie Irving", "Justin Holiday", "Theo Pinson", "Jaden Hardy", "Dwight Powell",                 "Josh Green", "Tim Hardaway Jr.", "Markieff Morris", "Frank Ntilikina", "Reggie Bullock",                 "Christian Wood", "Maxi Kleber", "Davis Bertans", "Javale McGee"]
+
+file_names = [absolute_path + "/images/{}.png".format(name.split()[0].lower()) for name in player_names]
+
+player_dict = dict(zip(player_names, file_names))
 
 # Define function for the first tab
 def Lineups():
@@ -71,7 +82,7 @@ def Matchups():
 
     # after doing that, put them next to each other using an automatically pulled image
     # TODO - make getting the image automatic, either by mapping or something else
-    fighter1_image = Image.open("images/luka.png")
+    fighter1_image = Image.open(player_dict[selected_player_1])
     fighter2_image = Image.open("images/testbryant.png")
 
     col1, col2, col3 = st.columns([1, 1, 1])
@@ -122,7 +133,7 @@ def Shooting_Calculator():
 
     # TODO: match selected_player_1 to its image mapping
     with col1:
-        selection = Image.open("images/luka.png")
+        selection = Image.open(player_dict[selected_player_1])
         st.image(selection, use_column_width=True)
 
     # Add line chart to the second column
