@@ -122,7 +122,8 @@ def Shooting_Calculator():
 
     # TODO: match selected_player_1 to its image mapping
     with col1:
-        st.image("images/luka.png", use_column_width=True)
+        selection = Image.open("images/luka.png")
+        st.image(selection, use_column_width=True)
 
     # Add line chart to the second column
     with col2:
