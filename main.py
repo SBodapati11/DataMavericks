@@ -6,6 +6,8 @@ import streamlit as st
 import altair as alt
 from PIL import Image
 from pathlib import Path
+import process_data
+from SeasonDataFiltering import SeasonDataFiltering
 
 
 # Players
@@ -113,6 +115,7 @@ def Matchups():
         image_path = os.path.join(image_folder, image_name)
         st.image(image_path)
 
+<<<<<<< Updated upstream
 
 # Define function for the third tab
 def Shooting_Calculator():
@@ -189,6 +192,8 @@ def Shooting_Calculator():
         unsafe_allow_html=True)
 
 
+=======
+>>>>>>> Stashed changes
 def Log_Off():
     st.header("Log Off")
 
@@ -200,7 +205,7 @@ image_name = "mavs.png"
 image_path = os.path.join(image_folder, image_name)
 st.sidebar.image(image_path, width=200)  # Add an image to the sidebar
 st.sidebar.title("DataMavericks")
-tabs = ["Lineups", "Matchups", "Shooting Calculator", "Log Off"]
+tabs = ["Lineups", "Matchups", "Season Data Filtering"]
 selected_tab = st.sidebar.radio("Navigation", tabs, index=0)
 
 # Run the appropriate function based on the selected tab
@@ -208,7 +213,5 @@ if selected_tab == "Lineups":
     Lineups()
 elif selected_tab == "Matchups":
     Matchups()
-elif selected_tab == "Shooting Calculator":
-    Shooting_Calculator()
-else:
-    Log_Off()
+elif selected_tab == "Season Data Filtering":
+    SeasonDataFiltering()
