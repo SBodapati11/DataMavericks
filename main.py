@@ -1,5 +1,8 @@
+import numpy as np
 import pandas as pd
 import streamlit as st
+import altair as alt
+import time
 from PIL import Image
 
 
@@ -84,6 +87,7 @@ def Matchups():
     with col3:
         st.image(fighter2_image)
 
+    # Write Prediction
     st.subheader("Prediction")
     st.write(
         f"<span style='color: blue'>{selected_player_1}</span> has a <b>{str(estimated_chance)}%</b> chance of beating <span style='color: red'>{selected_player_2}</span>",
@@ -93,8 +97,74 @@ def Matchups():
 # Define function for the third tab
 def Shooting_Calculator():
     st.header("Shooting Calculator")
-    st.write("This is the content for Shooting Calculator.")
+
+    Players_1 = ["Luka Doncic", "Kyrie Irving", "Justin Holiday", "Theo Pinson", "Jaden Hardy", "Dwight Powell",
+                 "Josh Green", "Tim Hardaway Jr.", "Markieff Morris", "Frank Ntilikina", "Reggie Bullock",
+                 "Christian Wood", "Maxi Kleber", "Davis Bertans", "Javale McGee"]
+    st.write(f"<span style='color: blue'><b>Select Player</b></span>", unsafe_allow_html=True)
+    selected_player_1 = st.selectbox(" ", Players_1, index=0)
+
+    basketball_shots = ['Jump Shot', 'Layup', 'Dunk', 'Hook Shot', 'Tip Shot', 'Alley-oop', 'Free Throw', 'Three-Pointer']
+    st.write(f"<span style='color: red'><b>Select a Shot</b></span>", unsafe_allow_html=True)
+    selected_shot = st.selectbox(" ", basketball_shots, index=0)
+
+    # TODO: Actually calculate the chance he has using a time series
+    estimated_chance = 99.875
+
+    # TODO: Make this graph take in actual data
+    # Generate sample data
+    time = pd.date_range("2022-01-01", periods=100, freq="1min")
+    y = np.random.randn(100)
+    y = np.abs(y)  # Make all values positive
+
+    # Create two columns
+    col1, col2 = st.columns([1, 2])
+
+    # TODO: match selected_player_1 to its image mapping
+    with col1:
+        st.image("images/luka.png", use_column_width=True)
+
+    # Add line chart to the second column
+    with col2:
+        # Create dataframe with sample data
+        df = pd.DataFrame({"time": time, "y": y})
+
+        # Create line chart
+        line_chart = (
+            alt.Chart(df)
+            .mark_line(color="darkblue")
+            .encode(
+                x="time:T",
+                y="y:Q",
+            )
+        )
+
+        # Create filled area below the line chart
+        area_chart = (
+            alt.Chart(df)
+            .mark_area(color="lightblue", opacity=0.3)
+            .encode(
+                x="time:T",
+                y=alt.Y("y:Q", stack=None),
+                tooltip=["y:Q"],
+            )
+        )
+
+        # Combine the line chart and area chart
+        chart = line_chart + area_chart
+
+        # Set chart size and title
+        chart.properties(width=700, height=400, title="Sample Line Chart with Filled Area")
+
+        # Display the chart
+        st.altair_chart(chart, use_container_width=True)
+
     # Add more code here for custom functionality
+    # Write Prediction
+    st.subheader("Prediction")
+    st.write(
+        f"<span style='color: blue'>{selected_player_1}</span> has a <b>{str(estimated_chance)}</b> chance of making a <b>{selected_shot}</b>.",
+        unsafe_allow_html=True)
 
 
 def Log_Off():
