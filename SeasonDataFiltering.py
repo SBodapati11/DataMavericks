@@ -35,7 +35,7 @@ def filter_by_player_shots_taken(player):
   return shot_locations_data
 
 def SeasonDataFiltering():
-    st.header("Spatial Analysis")
+    st.header("Player Shot Analysis")
 
     # Select player to look at stats for
     with st.expander(label="**Filter the season data by a specific player**"):
