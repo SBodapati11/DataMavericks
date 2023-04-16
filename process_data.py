@@ -301,7 +301,6 @@ for opponent in all_opponent_lineups:
 
 lineups_df.to_parquet(str(Path.cwd()) + "/data/lineups.parquet")
 
-
 # Compute the mean of stats based on 'name' and 'opponent'
 mean_stats = df_players.groupby(['name', 'opponent']).mean().reset_index()
 
