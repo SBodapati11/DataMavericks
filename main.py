@@ -51,7 +51,6 @@ def Lineups():
     st.table(df)
 
 
-
 # Define function for the second tab
 def Matchups():
     st.header("Matchups")
@@ -60,7 +59,7 @@ def Matchups():
                  "Christian Wood", "Maxi Kleber", "Davis Bertans", "Javale McGee"]
     Players_2 = ["Bryant Test", "Papa's pizzeria", "Gray Domino", "Black Velvet", "Chcolate Coating"]
     st.write(f"<span style='color: blue'><b>Select Player 1</b></span>", unsafe_allow_html=True)
-    selected_player_1 = st.selectbox(" ",Players_1, index=0)
+    selected_player_1 = st.selectbox(" ", Players_1, index=0)
     st.write(f"<span style='color: red'><b>Select Player 2</b></span>", unsafe_allow_html=True)
     selected_player_2 = st.selectbox(" ", Players_2, index=0)
     # TODO - Pull up selected_player_1's stats and selected_player_2's stats and run algorithmic magic on them woo
@@ -79,15 +78,16 @@ def Matchups():
 
     with col2:
         st.markdown(
-            "<div style='text-align:center'><span style='color:blue; font-size: 72px;'>V.</span><span style='color:red; font-size: 72px;'>S.</span></div>", unsafe_allow_html=True)
+            "<div style='text-align:center'><span style='color:blue; font-size: 72px;'>V.</span><span "
+            "style='color:red; font-size: 72px;'>S.</span></div>", unsafe_allow_html=True)
 
     with col3:
         st.image(fighter2_image)
 
     st.subheader("Prediction")
-    st.write(f"<span style='color: blue'>{selected_player_1}</span> has a <b>{str(estimated_chance)}%</b> chance of beating <span style='color: red'>{selected_player_2}</span>", unsafe_allow_html=True)
-
-
+    st.write(
+        f"<span style='color: blue'>{selected_player_1}</span> has a <b>{str(estimated_chance)}%</b> chance of beating <span style='color: red'>{selected_player_2}</span>",
+        unsafe_allow_html=True)
 
 
 # Define function for the third tab
@@ -103,9 +103,9 @@ def Log_Off():
 
 # Define the Streamlit app layout
 st.set_page_config(page_title="Data Mavericks", layout="wide")
-st.sidebar.image("images/mavs.png", width=200) # Add an image to the sidebar
+st.sidebar.image("images/mavs.png", width=200)  # Add an image to the sidebar
 st.sidebar.title("DataMavericks")
-tabs = ["Lineups", "Matchups", "Shooting Calculator"]
+tabs = ["Lineups", "Matchups", "Shooting Calculator", "Log Off"]
 selected_tab = st.sidebar.radio("Navigation", tabs, index=0)
 
 # Run the appropriate function based on the selected tab
