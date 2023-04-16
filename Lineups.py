@@ -31,7 +31,8 @@ def get_position(player_name):
     counts = {}
     for pos in unique_pos:
         counts[pos] = len(all_players_data[all_players_data['startPos'] == pos])
-    del counts[""]
+    if "" in counts:
+        del counts[""]
     max_count = 0
     max_pos = ""
     for pos in counts:
@@ -94,6 +95,7 @@ def Lineups():
     # Metric information
     play_col, offense_col, defense_col = st.columns(3)
 
-    play_col.metric(":green[**Play Type**]", list(filtered_lineups.index)[0])
+    if len(filtered_lineups.index) > 0:
+        play_col.metric(":green[**Play Type**]", list(filtered_lineups.index)[0])
     offense_col.metric(":green[**Offensive Strength Average**]", "{:.3f}".format(filtered_lineups['offense_strength'].mean()))
     defense_col.metric(":green[**Defensive Strength Average**]", "{:.3f}".format(lineups['defense_strength'].mean()))

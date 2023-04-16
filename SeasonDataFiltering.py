@@ -42,7 +42,7 @@ def SeasonDataFiltering():
         with st.form("PlayerShotsForm", clear_on_submit=True):
             player_name = st.selectbox(label="Select player", options=mavs_players_names['name'].unique(),
                                     help="Select the player you want to filter data for")
-            player_shots_submitted = st.form_submit_button(label="Filter Data", type="primary")
+            player_shots_submitted = st.form_submit_button(label="Filter Data")
 
             if player_shots_submitted:
                 player = mavs_players_names[mavs_players_names['name'] == str(player_name)].reset_index()

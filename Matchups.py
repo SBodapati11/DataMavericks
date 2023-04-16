@@ -65,12 +65,12 @@ def predict_matchup_winner(player1_name, player1_team, player2_name, player2_tea
 def Matchups():
     st.header("Matchups")
 
-    st.write(f"<span style='color: blue'><b>Select Mavericks Player</b></span>", unsafe_allow_html=True)
+    st.write(f"<span style='color: silver'><b>Select Mavericks Player</b></span>", unsafe_allow_html=True)
     selected_player_1 = st.selectbox(" ", mavs_players_names['name'].unique(), 
                                      index=list(mavs_players_names['name'].unique()).index('Kyrie Irving'))
-    st.write(f"<span style='color: red'><b>Select Opponent Team</b></span>", unsafe_allow_html=True)
+    st.write(f"<span style='color: silver'><b>Select Opponent Team</b></span>", unsafe_allow_html=True)
     selected_opponent = st.selectbox(" ", list(all_teams.keys()), index=list(all_teams.keys()).index('Golden State Warriors'))
-    st.write(f"<span style='color: red'><b>Select Opponent Player</b></span>", unsafe_allow_html=True)
+    st.write(f"<span style='color: silver'><b>Select Opponent Player</b></span>", unsafe_allow_html=True)
     opponents_players_names = all_players_data[all_players_data['nbaTeamId'] == str(all_teams[selected_opponent])]
     selected_player_2 = st.selectbox(" ", opponents_players_names['name'].unique(), 
                                      index=list(opponents_players_names['name'].unique()).index('Draymond Green'))
@@ -102,8 +102,8 @@ def Matchups():
 
     with col2:
         st.markdown(
-            "<div style='text-align:center'><span style='color:blue; font-size: 72px;'>V.</span><span "
-            "style='color:red; font-size: 72px;'>S.</span></div>", unsafe_allow_html=True)
+            "<div style='text-align:center'><span style='color:silver; font-size: 72px;'>V.</span><span "
+            "style='color:silver; font-size: 72px;'>S.</span></div>", unsafe_allow_html=True)
 
     with col3:
         st.image(fighter2_image)
@@ -111,7 +111,7 @@ def Matchups():
     # Write Prediction
     st.subheader("Prediction")
     st.write(
-        f"<span style='color: blue'>{selected_player_1}</span> has a <b>{str(estimated_chance)}%</b> chance of beating <span style='color: red'>{selected_player_2}</span>",
+        f"<span style='color: silver'>{selected_player_1}</span> has a <b>{str(estimated_chance)}%</b> chance of beating <span style=':silver'>{selected_player_2}</span>",
         unsafe_allow_html=True)
     if estimated_chance > 50:
         image_name = "gifs/luka_muscle.gif"
