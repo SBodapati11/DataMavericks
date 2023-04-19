@@ -66,14 +66,12 @@ def Matchups():
     st.header("Matchups")
 
     st.write(f"<span style='color: silver'><b>Select Mavericks Player</b></span>", unsafe_allow_html=True)
-    selected_player_1 = st.selectbox(" ", mavs_players_names['name'].unique(), 
-                                     index=list(mavs_players_names['name'].unique()).index('Kyrie Irving'))
+    selected_player_1 = st.selectbox(" ", mavs_players_names['name'].unique())
     st.write(f"<span style='color: silver'><b>Select Opponent Team</b></span>", unsafe_allow_html=True)
     selected_opponent = st.selectbox(" ", list(all_teams.keys()), index=list(all_teams.keys()).index('Golden State Warriors'))
     st.write(f"<span style='color: silver'><b>Select Opponent Player</b></span>", unsafe_allow_html=True)
     opponents_players_names = all_players_data[all_players_data['nbaTeamId'] == str(all_teams[selected_opponent])]
-    selected_player_2 = st.selectbox(" ", opponents_players_names['name'].unique(), 
-                                     index=list(opponents_players_names['name'].unique()).index('Draymond Green'))
+    selected_player_2 = st.selectbox(" ", opponents_players_names['name'].unique())
 
     # TODO - Pull up selected_player_1's stats and selected_player_2's stats and run algorithmic magic on them woo
     # pit players against each other and run probability of p1 beating p2
@@ -81,9 +79,12 @@ def Matchups():
 
     player2_team = get_team_abbrev(int(get_team_id(selected_opponent)))
 
-    winner, loser, estimated_chance = predict_matchup_winner(selected_player_1, player1_team, selected_player_2, player2_team)
-
-    st.subheader("Estimated winner for this matchup: {0}".format(winner))
+    result = predict_matchup_winner(selected_player_1, player1_team, selected_player_2, player2_team)
+    if len(result) != 0:
+        winner, loser, estimated_chance = result[0], result[1], result[2]
+        st.subheader("Estimated winner for this matchup: {0}".format(winner))
+    else:
+        st.subheader("Not enough data between these 2 players to estimate a matchup")
 
     # after doing that, put them next to each other using an automatically pulled image
     image_name = "{0}.png".format(selected_player_1.split()[0].lower())
@@ -110,8 +111,9 @@ def Matchups():
 
     # Write Prediction
     st.subheader("Prediction")
+    formatted_win_str = "{:.3f}".format(estimated_chance)
     st.write(
-        f"<span style='color: silver'>{selected_player_1}</span> has a <b>{str(estimated_chance)}%</b> chance of beating <span style=':silver'>{selected_player_2}</span>",
+        f"<span style='color: silver'>{selected_player_1}</span> has a <b>{formatted_win_str}%</b> chance of beating <span style=':silver'>{selected_player_2}</span>",
         unsafe_allow_html=True)
     if estimated_chance > 50:
         image_name = "gifs/luka_muscle.gif"

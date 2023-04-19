@@ -316,7 +316,7 @@ mean_stats['team'] = team_data['team']
 
 # Define the criteria for offensive and defensive players
 offensive_positions = ['PG', 'SG']
-defensive_positions = ['C', 'PF', 'SF']
+defensive_positions = ['C', 'PF', 'SF','']
 
 # Create two dataframes: one for offensive players and one for defensive players
 offensive_players = mean_stats[mean_stats['startPos'].isin(offensive_positions)]
