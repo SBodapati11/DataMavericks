@@ -1,12 +1,6 @@
 # Required imports
-import numpy as np
 import pandas as pd
-import os
 import streamlit as st
-from PIL import Image
-import matplotlib.pyplot as plt
-from matplotlib.patches import Circle, Rectangle, Arc
-from nba_api.stats.endpoints import shotchartdetail
 import json
 from pathlib import Path
 import requests
@@ -31,6 +25,7 @@ def get_position(player_name):
     counts = {}
     for pos in unique_pos:
         counts[pos] = len(all_players_data[all_players_data['startPos'] == pos])
+    
     if "" in counts:
         del counts[""]
     max_count = 0
@@ -55,12 +50,15 @@ def Lineups():
 
     teams = list(all_teams.keys())
     selected_team = st.selectbox("Select an opponent to create possible roster against", teams, index=0)
-    st.markdown("Optimal lineups against: **{0}** (click to change)".format(selected_team))
+    st.markdown("Optimal lineups against: **{0}**".format(selected_team))
+    st.caption("_Select a column header to sort by increasing/decreasing order_")
 
     team_abbrev = get_team_abbrev(int(get_team_id(selected_team)))
 
     team_lineups = lineups[lineups['team'] == team_abbrev].reset_index()
-    filtered_lineups = pd.DataFrame(columns=['C', 'PF', 'SG', 'PG', 'SF', 'play_type', 'offense_strength', 'defense_strength'])
+    #team_lineups.drop_duplicates(inplace=True)
+    #st.dataframe(team_lineups)
+    filtered_lineups = pd.DataFrame(columns=['C', 'PF', 'SG', 'PG', 'SF', 'Play Type', 'Offense Strength', 'Defense Strength'])
     for i in range(len(team_lineups.index)):
         lineup = team_lineups.at[i,'lineup']
         lineup_pos = {'C': [], 'PF': [], 'SG': [], 'PG': [], 'SF': []}
@@ -71,7 +69,7 @@ def Lineups():
         for pos in lineup_pos:
             if len(lineup_pos[pos]) == 0:
                 check = False
-        #st.write(updated_lineup)
+        
         if check:
             for pos in lineup_pos:
                 if len(lineup_pos[pos]) == 1:
@@ -88,14 +86,15 @@ def Lineups():
             new_lineup.append(team_lineups.at[i,'defense_strength'])
             
             filtered_lineups.loc[len(filtered_lineups.index)] = new_lineup
+    
     filtered_lineups.drop_duplicates(inplace=True)
-    filtered_lineups.set_index('play_type', inplace=True)
+    filtered_lineups.set_index('Play Type', inplace=True)
     st.dataframe(filtered_lineups)
 
     # Metric information
     play_col, offense_col, defense_col = st.columns(3)
 
     if len(filtered_lineups.index) > 0:
-        play_col.metric(":green[**Play Type**]", list(filtered_lineups.index)[0])
-    offense_col.metric(":green[**Offensive Strength Average**]", "{:.3f}".format(filtered_lineups['offense_strength'].mean()))
-    defense_col.metric(":green[**Defensive Strength Average**]", "{:.3f}".format(lineups['defense_strength'].mean()))
+        play_col.metric(":green[**Average Play Type**]", list(filtered_lineups.index)[0])
+    offense_col.metric(":green[**Average Offensive Strength**]", "{:.3f}".format(filtered_lineups['Offense Strength'].mean()))
+    defense_col.metric(":green[**Average Defensive Strength**]", "{:.3f}".format(filtered_lineups['Defense Strength'].mean()))
