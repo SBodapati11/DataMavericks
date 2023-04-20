@@ -63,7 +63,7 @@ def predict_matchup_winner(player1_name, player1_team, player2_name, player2_tea
         return player2_name, player2_team, win_probability
 
 def Matchups():
-    st.header("Matchups")
+    st.header("⛹️ Matchups")
 
     st.write(f"<span style='color: silver'><b>Select Mavericks Player</b></span>", unsafe_allow_html=True)
     selected_player_1 = st.selectbox(" ", mavs_players_names['name'].unique())

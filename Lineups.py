@@ -51,7 +51,7 @@ def get_team_abbrev(team_id):
 
 # Define function for the first tab
 def Lineups():
-    st.header("Lineups")
+    st.header("🏀 Lineups")
 
     teams = list(all_teams.keys())
     selected_team = st.selectbox("Select an opponent to create possible roster against", teams, index=0)

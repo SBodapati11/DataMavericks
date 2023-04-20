@@ -1,8 +1,8 @@
 import streamlit as st
 
-def Homepage():
 
-    st.title("Home")
+def Homepage():
+    st.title("🏠 Home")
     st.image("images/App/Logo.png", width=200)
     st.header("Welcome to DataMavericks!")
     st.subheader("A one-stop-shop AI powerhouse dashboard for the Mavs!")
