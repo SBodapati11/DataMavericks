@@ -96,7 +96,7 @@ def Shooting_Calculator():
 # Define the Streamlit app layout
 st.set_page_config(page_title="Data Mavericks", layout="wide")
 
-image_name = "teams_logos/mavericks.png"
+image_name = "App/Logo.png"
 image_path = os.path.join(image_folder, image_name)
 st.sidebar.image(image_path, width=200)  # Add an image to the sidebar
 st.sidebar.title("DataMavericks")
