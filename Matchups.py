@@ -1,12 +1,8 @@
 # Required imports
-import numpy as np
 import pandas as pd
 import os
 import streamlit as st
 from PIL import Image
-import matplotlib.pyplot as plt
-from matplotlib.patches import Circle, Rectangle, Arc
-from nba_api.stats.endpoints import shotchartdetail
 import json
 from pathlib import Path
 import requests
@@ -68,7 +64,7 @@ def Matchups():
     st.write(f"<span style='color: silver'><b>Select Mavericks Player</b></span>", unsafe_allow_html=True)
     selected_player_1 = st.selectbox(" ", mavs_players_names['name'].unique())
     st.write(f"<span style='color: silver'><b>Select Opponent Team</b></span>", unsafe_allow_html=True)
-    selected_opponent = st.selectbox(" ", list(all_teams.keys()), index=list(all_teams.keys()).index('Golden State Warriors'))
+    selected_opponent = st.selectbox(" ", list(all_teams.keys()))
     st.write(f"<span style='color: silver'><b>Select Opponent Player</b></span>", unsafe_allow_html=True)
     opponents_players_names = all_players_data[all_players_data['nbaTeamId'] == str(all_teams[selected_opponent])]
     selected_player_2 = st.selectbox(" ", opponents_players_names['name'].unique())

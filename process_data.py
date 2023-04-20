@@ -4,12 +4,9 @@ import io
 import re
 from pathlib import Path
 import matplotlib.pyplot as plt
-import matplotlib
 from matplotlib.patches import Circle, Rectangle, Arc
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
-import numpy as np
-import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
@@ -162,7 +159,6 @@ plt.savefig(str(Path.cwd()) + "/analytics_images/empty_court.png")
 
 # Line up data
 df_players['startPos_cat'] = df_players['startPos'].astype('category').cat.codes
-
 
 # Normalize the data
 
