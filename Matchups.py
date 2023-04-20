@@ -112,7 +112,7 @@ def Matchups():
         f"<span style='color: silver'>{selected_player_1}</span> has a <b>{formatted_win_str}%</b> chance of beating <span style=':silver'>{selected_player_2}</span>",
         unsafe_allow_html=True)
     if estimated_chance > 50:
-        image_name = "gifs/luka_muscle.gif"
+        image_name = "gifs/luka_win.gif"
         image_path = os.path.join(image_folder, image_name)
         st.image(image_path)
     else:
