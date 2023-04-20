@@ -6,6 +6,7 @@ from PIL import Image
 import json
 from pathlib import Path
 import requests
+import re
 
 # Read the play by play, players, and scores data
 mavs_pbp_season = pd.read_parquet(str(Path.cwd()) + "/data/mavs_pbp_season.parquet")
@@ -90,14 +91,34 @@ def Matchups():
         st.subheader("Not enough data between these 2 players to estimate a matchup")
 
     # after doing that, put them next to each other using an automatically pulled image
-    image_name = "{0}.png".format(selected_player_1.split()[0].lower())
+    image_name = re.sub(r'[^\w\s]', '',selected_player_1.split()[0].lower())
+    image_name = "mavs_player_images/{0}.png".format(image_name)
     image_path = os.path.join(image_folder, image_name)
     fighter1_image = Image.open(image_path)
 
     # TODO - Make the second fighter automatic
-    image_2_name = "teams_logos/{0}.png".format(selected_opponent.split()[-1].lower())
+    image_2_fname = re.sub(r'[^\w\s]', '',selected_player_2.split()[0].lower())
+    image_2_lname=""
+    if "-" in selected_player_2.split(" ")[1].lower():
+        image_2_lname=selected_player_2.split()[1].lower().replace("-","_")
+        image_2_lname = re.sub(r'[^\w\s]', '',image_2_lname)
+    else:
+        image_2_lname = re.sub(r'[^\w\s]', '',selected_player_2.split()[1].lower())
+    image_2_name_full=""
+    if len(selected_player_2.split()) > 2:
+        image_2_mname = re.sub(r'[^\w\s]', '', selected_player_2.split()[2].lower())
+        image_2_name_full = image_2_fname + "_"+ image_2_lname + "_" + image_2_mname
+    else:
+        image_2_name_full = image_2_fname + "_"+ image_2_lname
+
+    image_2_name = "nba_player_images/{0}.png".format(image_2_name_full)
     image_2_path = os.path.join(image_folder, image_2_name)
-    fighter2_image = Image.open(image_2_path)
+    fighter2_image=""
+    if os.path.isfile(image_2_path):
+        fighter2_image = Image.open(image_2_path)
+    else:
+        image_2_path = os.path.join(image_folder, "teams_logos/{0}.png".format(selected_opponent.split()[-1].lower()))
+        fighter2_image = Image.open(image_2_path)
 
     col1, col2, col3 = st.columns([1, 1, 1])
 
