@@ -8,6 +8,7 @@ from PIL import Image
 from SeasonDataFiltering import SeasonDataFiltering
 from Matchups import Matchups
 from Lineups import Lineups
+from Homepage import Homepage
 
 # Players
 players_mavs = ["Luka Doncic", "Kyrie Irving", "Justin Holiday", "Theo Pinson", "Jaden Hardy", "Dwight Powell",
@@ -99,11 +100,13 @@ image_name = "teams_logos/mavericks.png"
 image_path = os.path.join(image_folder, image_name)
 st.sidebar.image(image_path, width=200)  # Add an image to the sidebar
 st.sidebar.title("DataMavericks")
-tabs = ["Lineups", "Matchups", "Player Shot Analysis"]
+tabs = ["Homepage", "Lineups", "Matchups", "Player Shot Analysis"]
 selected_tab = st.sidebar.radio("Navigation", tabs, index=0)
 
 # Run the appropriate function based on the selected tab
-if selected_tab == "Lineups":
+if selected_tab == "Homepage":
+    Homepage()
+elif selected_tab == "Lineups":
     Lineups()
 elif selected_tab == "Matchups":
     Matchups()
