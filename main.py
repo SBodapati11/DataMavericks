@@ -21,7 +21,7 @@ image_name = "App/Logo.png"
 image_path = os.path.join(image_folder, image_name)
 st.sidebar.image(image_path, width=200)  # Add an image to the sidebar
 st.sidebar.title("DataMavericks")
-tabs = ["🏠 Homepage", "🏀 Lineups", "⛹️ Matchups", "🗑️ Player Shot Analysis"]
+tabs = ["🏠 Homepage", "🏀 Lineups", "⛹️ Matchups", "🎯 Player Shot Analysis"]
 selected_tab = st.sidebar.radio("Navigation", tabs, index=0)
 
 # Run the appropriate function based on the selected tab
@@ -31,5 +31,5 @@ elif selected_tab == "🏀 Lineups":
     Lineups()
 elif selected_tab == "⛹️ Matchups":
     Matchups()
-elif selected_tab == "🗑️ Player Shot Analysis":
+elif selected_tab == "🎯 Player Shot Analysis":
     SeasonDataFiltering()

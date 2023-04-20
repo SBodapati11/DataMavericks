@@ -7,14 +7,15 @@ import json
 from pathlib import Path
 import requests
 
+# Read the play by play, players, and scores data
 mavs_pbp_season = pd.read_parquet(str(Path.cwd()) + "/data/mavs_pbp_season.parquet")
 all_players_data = pd.read_parquet(str(Path.cwd()) + "/data/player_data.parquet")
-
 offensive_players = pd.read_parquet(str(Path.cwd()) + "/data/offensive_players.parquet")
 defensive_players = pd.read_parquet(str(Path.cwd()) + "/data/defensive_players.parquet")
 
 mavs_players_names = all_players_data[all_players_data['team'] == 'DAL']
 
+# Get the team name and ids
 teams_json = json.loads(requests.get('https://raw.githubusercontent.com/bttmly/nba/master/data/teams.json').text)
 all_teams = {}
 for team in teams_json:
@@ -23,20 +24,24 @@ for team in teams_json:
 # image folder
 image_folder = "images"
 
+# Get the team id of a given team (string)
 def get_team_id(team_name):
     return all_teams[team_name]
 
+# Get the team abbreviation of a given team (id)
 def get_team_abbrev(team_id):
     all_player_data = all_players_data[all_players_data['nbaTeamId'] == str(team_id)].reset_index()
     return all_player_data.at[0, 'team']
 
+# Given 2 players and their teams, predict the winner of the matchup
 def predict_matchup_winner(player1_name, player1_team, player2_name, player2_team):
     player1_offense = offensive_players[(offensive_players['name'] == player1_name) & (offensive_players['team'] == player1_team)]
     player1_defense = defensive_players[(defensive_players['name'] == player1_name) & (defensive_players['team'] == player1_team)]
 
     player2_offense = offensive_players[(offensive_players['name'] == player2_name) & (offensive_players['team'] == player2_team)]
     player2_defense = defensive_players[(defensive_players['name'] == player2_name) & (defensive_players['team'] == player2_team)]
-    st.write(player1_name, player2_name, player1_team, player2_team)
+    
+    # Check if a score exists for the Mavs player
     if not player1_offense.empty:
         player1 = player1_offense
     elif not player1_defense.empty:
@@ -44,6 +49,7 @@ def predict_matchup_winner(player1_name, player1_team, player2_name, player2_tea
     else:
         return ()
 
+    # Check if a score exists for the opponent player
     if not player2_offense.empty:
         player2 = player2_offense
     elif not player2_defense.empty:
@@ -51,6 +57,7 @@ def predict_matchup_winner(player1_name, player1_team, player2_name, player2_tea
     else:
         return ()
 
+    # Calculate the win probability based on who has the higher score
     win_probability = (player1['score'].values[0] / (player1['score'].values[0] + player2['score'].values[0])) * 100
 
     if player1['score'].values[0] > player2['score'].values[0]:
@@ -61,13 +68,13 @@ def predict_matchup_winner(player1_name, player1_team, player2_name, player2_tea
 def Matchups():
     st.header("⛹️ Matchups")
 
-    st.write(f"<span style='color: silver'><b>Select Mavericks Player</b></span>", unsafe_allow_html=True)
-    selected_player_1 = st.selectbox(" ", mavs_players_names['name'].unique())
-    st.write(f"<span style='color: silver'><b>Select Opponent Team</b></span>", unsafe_allow_html=True)
-    selected_opponent = st.selectbox(" ", list(all_teams.keys()))
-    st.write(f"<span style='color: silver'><b>Select Opponent Player</b></span>", unsafe_allow_html=True)
+    #st.write(f"<span style='color: silver'><b>Select Mavericks Player</b></span>", unsafe_allow_html=True)
+    selected_player_1 = st.selectbox(":orange[**Select Mavericks Player**]", mavs_players_names['name'].unique())
+    #st.write(f"<span style='color: silver'><b>Select Opponent Team</b></span>", unsafe_allow_html=True)
+    selected_opponent = st.selectbox(":orange[**Select Opponent Team**]", list(all_teams.keys()))
+    #st.write(f"<span style='color: silver'><b>Select Opponent Player</b></span>", unsafe_allow_html=True)
     opponents_players_names = all_players_data[all_players_data['nbaTeamId'] == str(all_teams[selected_opponent])]
-    selected_player_2 = st.selectbox(" ", opponents_players_names['name'].unique())
+    selected_player_2 = st.selectbox(":orange[**Select Opponent Player**]", opponents_players_names['name'].unique())
 
     # TODO - Pull up selected_player_1's stats and selected_player_2's stats and run algorithmic magic on them woo
     # pit players against each other and run probability of p1 beating p2
@@ -99,8 +106,8 @@ def Matchups():
 
     with col2:
         st.markdown(
-            "<div style='text-align:center'><span style='color:silver; font-size: 72px;'>V.</span><span "
-            "style='color:silver; font-size: 72px;'>S.</span></div>", unsafe_allow_html=True)
+            "<div style='text-align:center'><span style='color:silver; font-size: 72px;'>V</span><span "
+            "style='color:silver; font-size: 72px;'>S</span></div>", unsafe_allow_html=True)
 
     with col3:
         st.image(fighter2_image)
