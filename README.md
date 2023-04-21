@@ -10,6 +10,8 @@ DataMavericks, or DataMavs for short, is a one-stop shop for analyzing Dallas Ma
 ## How to run
 Simply run `streamlit run main.py` and the website should load.
 
+Refer to *[Requirements](Requirements.md)* for more information about the necessary libraries/modules used in this project.
+
 ## How we built it
 
 * For the frontend, we used **Streamlit** and **CSS**.
